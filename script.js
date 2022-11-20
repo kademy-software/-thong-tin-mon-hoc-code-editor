@@ -1,0 +1,26 @@
+
+const html_code = document.querySelector('.html-code textarea');
+const css_code = document.querySelector('.css-code textarea');
+const js_code = document.querySelector('.js-code textarea');
+const result = document.querySelector('#result');
+
+function run() {
+   // Lưu trữ dữ liệu trong Bộ nhớ cục bộ
+    localStorage.setItem('html_code', html_code.value);
+    localStorage.setItem('css_code', css_code.value);
+    localStorage.setItem('js_code', js_code.value);
+
+    // Thực thi HTML, CSS & JS
+    result.contentDocument.body.innerHTML = `<style>${localStorage.css_code}</style>` + localStorage.html_code;
+    result.contentWindow.eval(localStorage.js_code);
+}
+
+//Kiểm tra những thứ người dùng nhập -> Hiển thị ngay thời điểm đó 
+html_code.onkeyup = () => run();
+css_code.onkeyup = () => run();
+js_code.onkeyup = () => run();
+
+// Truy cập dữ liệu trong hệ thống
+html_code.value = localStorage.html_code;
+css_code.value = localStorage.css_code;
+js_code.value = localStorage.js_code;
